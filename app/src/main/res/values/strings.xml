@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">SYN</string>
+    <string name="Humidity">Humidity</string>
+    <string name="Temperature">Temperature</string>
+    <string name="Light">Light</string>
+    <string name="Gas">Gas</string>
+    <string name="day">DAY</string>
+    <string name="week">WEEK</string>
+    <string name="month">MONTH</string>
+    <string name="year">YEAR</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="test">887.32</string>
+    <string name="test1">39.7% ( 1.2%)</string>
+    <string name="test3">Жов 16 1:31 PM</string>
+    <string name="test4">538-18</string>
+    <string name="button">Button</string>
+    <string name="todo">TODO</string>
+    <string name="frag1_text">Fragment 1</string>
+    <string name="frag2_text">Fragment 2</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="replace">Replace</string>
+    <string name="stack">add to Back Stack</string>
+    
+    
+    <!-- Strings for respones-->
+
+</resources>
