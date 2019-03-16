@@ -24,8 +24,17 @@
     <string name="remove">Remove</string>
     <string name="replace">Replace</string>
     <string name="stack">add to Back Stack</string>
-    
-    
+    <string name="room_301">301</string>
+    <string name="room_302">302</string>
+    <string name="room_303">303</string>
+    <string name="room_304">304</string>
+    <string name="room_305">305</string>
+    <string name="room_306">306</string>
+    <string name="room_307">307</string>
+    <string name="room_538">538</string>
+    <string name="room_marik">МАРІК</string>
+
+
     <!-- Strings for respones-->
 
 </resources>

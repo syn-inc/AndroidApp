@@ -3,13 +3,14 @@ package com.example.fict;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -103,6 +104,54 @@ public class MainActivity extends AppCompatActivity {
         MainViewBord.setText(":)");
     }
 
+
+    /**
+     * @param menu creates menu in action bar
+     * @return true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_rooms, menu);
+        return true;
+    }
+
+
+    /**
+     * This method processes the option, which was selected from the room list
+     * @param item selected radio button
+     * @return true
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        item.setChecked(true);
+
+        switch (id) {
+            case R.id.room_301:
+                Toast.makeText(this, "301 room in development", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.room_302:
+                Toast.makeText(this, "302 room in development", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.room_303:
+                Toast.makeText(this, "303 room in development", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.room_304:
+                Toast.makeText(this, "304 room in development", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.room_305:
+                Toast.makeText(this, "305 room in development", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.room_538:
+                Toast.makeText(this, "538 room in development", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.room_marik:
+                Toast.makeText(this, "Marik room in development", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return true;
+    }
 
     /**
      * @see Respones,Parsing the first one, create two new obejets
