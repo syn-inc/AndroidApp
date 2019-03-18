@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * We must pass to the constructor  - json
  */
@@ -47,7 +49,7 @@ class Parsing {
      * @return - temperature sensor value
      */
     String getTemperatureLastValue() {
-        getLastValueSensor(1);
+        getLastValueSensor(0);
         return value;
     }
 
@@ -99,4 +101,39 @@ class Parsing {
         }
     }
 
+    /**
+     * @return array
+     */
+    private ArrayList getDay () {
+        ArrayList array = new ArrayList();
+        String news = null;
+        if (RESPONES != null) {
+            try {
+                JSONObject jsonObject = new JSONObject(RESPONES);
+                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                for (int i = 0; i <jsonArray.length() ; i++) {
+                    String jsonArray1 = jsonArray.getString(i);
+                    array.add(news);
+
+                    for (int j = 0; j < jsonArray1.length() ; j++) {
+                        int index1 = jsonArray1.indexOf(',')+1;
+                        news = jsonArray1.substring(index1,jsonArray1.length()-1);
+
+
+                    }
+                }
+                array.remove(0);
+                Log.d(TAG, String.valueOf(array));
+                Log.d(TAG, String.valueOf(news.length()));
+                setValue(news);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return array;
+
+
+    }
 }
