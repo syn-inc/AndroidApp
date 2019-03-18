@@ -49,7 +49,7 @@ class Parsing {
      * @return - temperature sensor value
      */
     String getTemperatureLastValue() {
-        getLastValueSensor(0);
+        getLastValueSensor(1);
         return value;
     }
 
