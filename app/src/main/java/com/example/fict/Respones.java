@@ -24,7 +24,8 @@ class Respones {
     private String RESPONSES;
 
     //URL for request
-    private String urlLastValue = "http://13.53.149.166/sensorlist.php?id=1&rid=1";
+    private String urlLastValue = "http://13.53.149.166/sensorlist.php";
+    private String urlHistory = "http://13.53.149.166/sensorhistory.php";
 
 
     /*
@@ -73,6 +74,47 @@ class Respones {
                 OkHttpClient client = new OkHttpClient();
                 final Request request = new Request.Builder()
                         .url(urlLastValue +"?bid="+bid+"&rid="+rid)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    assert response.body() != null;
+                    setRESPONSES(response.body().string());
+
+
+                } catch (final IOException e) {
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.e(urlLastValue, "Connection Error ", e);
+                        }
+                    };
+                } catch (final Exception e) {
+                    e.getStackTrace();
+                }
+                return  null;
+            }
+
+        }.execute();
+
+    }
+    /**
+     * @param start - date start
+     * @param end - date end
+     * @param id - id sensor
+     * @param step - step means how much data we need.
+     *             Example sensor send date on the one hour, its 24 value
+     *             we can get just 3 middle value at a day.
+     */
+    //http://13.53.149.166/sensorhistory.php?start=2019-03-14&end=2019-03-15&id=1&step=2
+    @SuppressLint("StaticFieldLeak")
+    void ResponesHistory(final String start, final String end, final int id, final int step) {
+        final AsyncTask connection_error_ = new AsyncTask<Void, Void, ResponseBody>() {
+
+            @Override
+            protected ResponseBody doInBackground(Void... voids) {
+                OkHttpClient client = new OkHttpClient();
+                final Request request = new Request.Builder()
+                        .url(urlHistory +"?start="+start+"&end="+end+"&id="+id+"&step="+step)
                         .build();
                 try {
                     Response response = client.newCall(request).execute();
