@@ -78,4 +78,3 @@ public class Light extends AppCompatActivity {
         chart.invalidate(); // refresh
       }
     }
-}
