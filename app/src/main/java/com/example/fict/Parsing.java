@@ -104,27 +104,24 @@ public class Parsing {
     /**
      * @return array
      */
-    public ArrayList<String> getDay () {
+    public ArrayList<Float> getDay () {
 
-        ArrayList<String> array = new ArrayList<>();
-        String news = null;
+        ArrayList<Float> array = new ArrayList<>();
+        Float iterator = null;
         if (RESPONES != null) {
             try {
                 JSONObject jsonObject = new JSONObject(RESPONES);
                 JSONArray jsonArray = jsonObject.getJSONArray("data");
                 for (int i = 0; i <jsonArray.length() ; i++) {
                     String jsonArray1 = jsonArray.getString(i);
-
                     for (int j = 0; j < jsonArray1.length() ; j++) {
                         int index1 = jsonArray1.indexOf(',')+1;
-                        news = jsonArray1.substring(index1,jsonArray1.length()-1);
+                        iterator = Float.parseFloat(jsonArray1.substring(index1,jsonArray1.length()-1));
                     }
-                    array.add(news);
-
+                    array.add(iterator);
                 }
                 //array.remove(0);
                 Log.d(TAG, String.valueOf(array));
-                setValue(news);
 
             } catch (JSONException e) {
                 e.printStackTrace();
