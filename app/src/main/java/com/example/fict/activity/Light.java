@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,5 +76,6 @@ public class Light extends AppCompatActivity {
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
         chart.invalidate(); // refresh
+      }
     }
 }

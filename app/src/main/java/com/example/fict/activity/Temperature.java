@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.fict.Parsing;
 import com.example.fict.R;
 import com.example.fict.ValueFormatter;
 import com.example.fict.MainActivity;
@@ -17,6 +19,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.example.fict.Respones;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,11 +33,22 @@ public class Temperature extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
-        TextView textView = findViewById(R.id.textView5);
+
+        //Create a new request
+        Respones respones = new Respones();
+        Parsing parsing = new Parsing();
         Date date = new Date();
+
+       //Find textview for display last value
+        TextView textView = findViewById(R.id.textView5);
+        //show date
         TextView textView1 = findViewById(R.id.Date);
         textView1.setText(date.toString());
+        //set last value on the main screen
         textView.setText(getTEMPEARTURE());
+        respones.ResponesHistory("2019-02-14","2019-03-15",1,2);
+        //Return array with all value ta a day
+        parsing.getDay();
         updateTempGraph();
     }
 
@@ -79,5 +93,6 @@ public class Temperature extends AppCompatActivity {
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
         chart.invalidate(); // refresh
+    }
     }
 }
