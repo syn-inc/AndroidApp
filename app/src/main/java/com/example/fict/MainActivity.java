@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             respones.Resp(1, 1);
-            respones.ResponesHistory("2019-02-14", "2019-03-15", 1, 2);
+
 
 
         }
