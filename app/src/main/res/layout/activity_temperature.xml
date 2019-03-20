@@ -139,17 +139,7 @@
             tools:ignore="ButtonStyle,OnClick" />
     </TableRow>
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph_temperature"
-        android:layout_width="339dp"
-        android:layout_height="193dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.375"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frag" />
+
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/frag"
@@ -161,7 +151,8 @@
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableRow"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>

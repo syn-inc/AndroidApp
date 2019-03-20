@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * We must pass to the constructor  - json
  */
-class Parsing {
+public class Parsing {
 
     private String RESPONES;
     private static final String TAG = "myLogs";
@@ -104,7 +104,7 @@ class Parsing {
     /**
      * @return array
      */
-    private ArrayList getDay () {
+    public ArrayList getDay () {
         ArrayList array = new ArrayList();
         String news = null;
         if (RESPONES != null) {
