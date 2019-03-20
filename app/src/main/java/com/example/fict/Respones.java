@@ -14,7 +14,7 @@ import okhttp3.ResponseBody;
  * Set answer from server
  * Get JSON
  */
-class Respones {
+public class Respones {
 
 
     // Just for test
@@ -107,7 +107,7 @@ class Respones {
      */
     //http://13.53.149.166/sensorhistory.php?start=2019-03-14&end=2019-03-15&id=1&step=2
     @SuppressLint("StaticFieldLeak")
-    void ResponesHistory(final String start, final String end, final int id, final int step) {
+   public void ResponesHistory(final String start, final String end, final int id, final int step) {
         final AsyncTask connection_error_ = new AsyncTask<Void, Void, ResponseBody>() {
 
             @Override
