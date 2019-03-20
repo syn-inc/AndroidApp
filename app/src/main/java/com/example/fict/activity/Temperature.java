@@ -2,8 +2,10 @@ package com.example.fict.activity;
 
         import android.annotation.SuppressLint;
         import android.graphics.Color;
+        import android.os.AsyncTask;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
+        import android.util.Log;
         import android.widget.RelativeLayout;
         import android.widget.TextView;
 
@@ -28,17 +30,24 @@ package com.example.fict.activity;
         import static com.example.fict.MainActivity.getTEMPEARTURE;
 
 public class Temperature extends AppCompatActivity {
+    ArrayList dayValueHistory;
+    String TAG = "TAG";
+
+    public void setDayValueHistory(ArrayList dayValueHistory) {
+        this.dayValueHistory = dayValueHistory;
+    }
+
+    public ArrayList getDayValueHistory() {
+        return dayValueHistory;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
 
-        //Create a new request
-        Respones respones = new Respones();
-        Parsing parsing = new Parsing();
         Date date = new Date();
-
         //Find textview for display last value
         TextView textView = findViewById(R.id.textView5);
         //show date
@@ -46,10 +55,54 @@ public class Temperature extends AppCompatActivity {
         textView1.setText(date.toString());
         //set last value on the main screen
         textView.setText(getTEMPEARTURE());
-        respones.ResponesHistory("2019-02-14", "2019-03-15", 1, 2);
         //Return array with all value ta a day
-        parsing.getDay();
-        updateTempGraph();
+        //updateTempGraph();
+
+        new getHis().execute();
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    class getHis extends AsyncTask<Void, Integer, Void> {
+        Respones respones = new Respones();
+        Parsing parsing = new Parsing();
+
+
+
+        /**
+         * A send GET request to the server
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            respones.ResponesHistory("2019-02-14", "2019-03-15", 1, 2);
+
+
+
+        }
+
+        // 3. Показать температтуру
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            setDayValueHistory(parsing.getDay());
+
+        }
+
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            parsing.setRESPONES(respones.getRESPONSES());
+
+            return null;
+        }
     }
 
     @SuppressLint("ShowToast")
@@ -57,7 +110,7 @@ public class Temperature extends AppCompatActivity {
     public void updateTempGraph() {
 
         // plotting results
-        LineChart chart = (LineChart) findViewById(R.id.chart);
+        LineChart chart = findViewById(R.id.chart);
         Description desc = chart.getDescription();
         desc.setText("");
 

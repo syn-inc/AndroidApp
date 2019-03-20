@@ -18,7 +18,7 @@ public class Parsing {
     private int id;
     private String value;
 
-    void setRESPONES(String RESPONES) {
+    public void setRESPONES(String RESPONES) {
         this.RESPONES = RESPONES;
     }
 
@@ -104,8 +104,9 @@ public class Parsing {
     /**
      * @return array
      */
-    public ArrayList getDay () {
-        ArrayList array = new ArrayList();
+    public ArrayList<String> getDay () {
+
+        ArrayList<String> array = new ArrayList<>();
         String news = null;
         if (RESPONES != null) {
             try {

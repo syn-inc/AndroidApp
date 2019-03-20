@@ -43,7 +43,7 @@ public class Respones {
      * Only one not private method
      * @return - Json representations
      */
-    String getRESPONSES() {
+    public String getRESPONSES() {
         return RESPONSES;
 
     }
