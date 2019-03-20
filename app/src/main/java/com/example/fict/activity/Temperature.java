@@ -5,10 +5,7 @@ package com.example.fict.activity;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.support.v7.app.AppCompatActivity;
-        import android.util.Log;
-        import android.widget.RelativeLayout;
         import android.widget.TextView;
-
         import com.example.fict.Parsing;
         import com.example.fict.R;
         import com.example.fict.ValueFormatter;

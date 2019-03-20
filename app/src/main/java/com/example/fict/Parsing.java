@@ -114,14 +114,15 @@ public class Parsing {
                 JSONArray jsonArray = jsonObject.getJSONArray("data");
                 for (int i = 0; i <jsonArray.length() ; i++) {
                     String jsonArray1 = jsonArray.getString(i);
-                    array.add(news);
 
                     for (int j = 0; j < jsonArray1.length() ; j++) {
                         int index1 = jsonArray1.indexOf(',')+1;
                         news = jsonArray1.substring(index1,jsonArray1.length()-1);
                     }
+                    array.add(news);
+
                 }
-                array.remove(0);
+                //array.remove(0);
                 Log.d(TAG, String.valueOf(array));
                 setValue(news);
 
