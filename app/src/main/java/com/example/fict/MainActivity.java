@@ -44,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
     ImageButton motion;
 
 
+    public static String[] getMonths() {
+        return new String[]{
+                "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"
+        };
+    }
+
     public static String getHUMIDITY() {
         return HUMIDITY;
     }
@@ -118,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method processes the option, which was selected from the room list
+     *
      * @param item selected radio button
      * @return true
      */
@@ -170,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             respones.Resp(1, 1);
-
+            respones.ResponesHistory("2019-02-14", "2019-03-15", 1, 2);
 
 
         }

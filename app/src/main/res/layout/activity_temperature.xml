@@ -139,7 +139,15 @@
             tools:ignore="ButtonStyle,OnClick" />
     </TableRow>
 
-
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="341dp"
+        android:layout_height="252dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.874" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/frag"
