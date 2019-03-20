@@ -37,6 +37,7 @@ public class Light extends AppCompatActivity {
         textView.setText(getLIGHT());
         updateLightGraph();
     }
+
     public void updateLightGraph() {
 
         // plotting results
@@ -66,9 +67,9 @@ public class Light extends AppCompatActivity {
         List<Entry> entries = new ArrayList<Entry>();
 
         for (int i = 0; i < 50; i++) {
-            entries.add(new Entry((float) i, (float) Math.pow(Math.sin(i), 2)*25));
+            entries.add(new Entry((float) i, (float) Math.pow(Math.sin(i), 2) * 25));
         }
-        LineDataSet dataSet = new LineDataSet(entries,"Quantity of light");
+        LineDataSet dataSet = new LineDataSet(entries, "Quantity of light");
         dataSet.setColor(Color.rgb(0, 255, 0));
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setLineWidth(2.5f);
@@ -76,5 +77,5 @@ public class Light extends AppCompatActivity {
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
         chart.invalidate(); // refresh
-      }
     }
+}

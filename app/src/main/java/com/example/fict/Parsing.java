@@ -118,13 +118,10 @@ public class Parsing {
                     for (int j = 0; j < jsonArray1.length() ; j++) {
                         int index1 = jsonArray1.indexOf(',')+1;
                         news = jsonArray1.substring(index1,jsonArray1.length()-1);
-
-
                     }
                 }
                 array.remove(0);
                 Log.d(TAG, String.valueOf(array));
-                Log.d(TAG, String.valueOf(news.length()));
                 setValue(news);
 
             } catch (JSONException e) {
@@ -133,7 +130,5 @@ public class Parsing {
 
         }
         return array;
-
-
     }
 }
