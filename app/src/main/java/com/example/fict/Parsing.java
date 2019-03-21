@@ -96,8 +96,7 @@ public class Parsing {
                 e.printStackTrace();
             }
         } else {
-            setValue("Empty set");
-
+            setValue(":)");
         }
     }
 

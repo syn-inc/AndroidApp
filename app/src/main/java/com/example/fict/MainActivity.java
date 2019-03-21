@@ -50,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    public static String[] getHours() {
+        return new String[]{
+                "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00",
+                "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
+                "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+    }
+
     public static String getHUMIDITY() {
         return HUMIDITY;
     }
@@ -125,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method processes the option, which was selected from the room list
      *
-     * @param item selected radio button
+     * @param item selected (radio button)
      * @return true
      */
     @Override
@@ -171,32 +178,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         /**
-         * A send GET request to the server
+         * Send GET request to the server
          */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             respones.Resp(1, 1);
-
-
-
         }
 
         // 3. Показать температтуру
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            setTEMPEARTURE(parsing.getTemperatureLastValue());
-            setLIGHT(parsing.getLightLastValue());
-            setHUMIDITY(parsing.getHumidityLastValue());
-
+            setTEMPEARTURE(parsing.getTemperatureLastValue()+"°C");
+            setLIGHT(parsing.getLightLastValue()+" lm");
+            setHUMIDITY(parsing.getHumidityLastValue()+"%");
         }
 
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-
         }
 
 
@@ -216,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
      * If we're push a on the button like temperature she will has color
      * icon , all buttons will be reset to background (black icons)
      */
-    void getDefoltIconsForButtons() {
+    void getDefaultIconsForButtons() {
         humidity.setImageResource(R.drawable.huminity_background);
         light.setImageResource(R.drawable.light_background);
         temperature.setImageResource(R.drawable.temperature_background);
@@ -238,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
      * Maybe create new class, i don't know. It's works!
      */
     public void Button_Animation() {
-        // Find animation in resourses
+        // Find animation in resources
         final Animation onClickAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha);
 
         humidity = findViewById(R.id.Humidity);
@@ -257,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(onClickAnimation);
-                getDefoltIconsForButtons();
+                getDefaultIconsForButtons();
                 humidity.setImageResource(R.drawable.himinity_color);
                 MainViewBord.setText(getHUMIDITY());
 
@@ -286,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.startAnimation(onClickAnimation);
                 MainViewBord.setText(getLIGHT());
-                getDefoltIconsForButtons();
+                getDefaultIconsForButtons();
                 light.setImageResource(R.drawable.light_color);
 
 
@@ -308,14 +310,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(onClickAnimation);
-                getDefoltIconsForButtons();
+                getDefaultIconsForButtons();
                 gas.setImageResource(R.drawable.gas_color);
                 MainViewBord.setText("Error");
 
                 Toast.makeText(getApplicationContext(), "This sensor is in development", Toast.LENGTH_SHORT).show();
-
             }
         });
+
         gas.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -335,10 +337,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 view.startAnimation(onClickAnimation);
                 MainViewBord.setText(getTEMPEARTURE());
-                getDefoltIconsForButtons();
+                getDefaultIconsForButtons();
                 temperature.setImageResource(R.drawable.temperature_color);
-
-
             }
         });
         temperature.setOnLongClickListener(new View.OnLongClickListener() {
@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(onClickAnimation);
-                getDefoltIconsForButtons();
+                getDefaultIconsForButtons();
                 fire.setImageResource(R.drawable.fire_color);
                 MainViewBord.setText("--");
 
@@ -373,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 view.startAnimation(onClickAnimation);
-                getDefoltIconsForButtons();
+                getDefaultIconsForButtons();
                 motion.setImageResource(R.drawable.motion_color);
                 MainViewBord.setText("Move");
 

@@ -104,7 +104,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:onClick="Change"
             android:text="@string/day"
             tools:ignore="ButtonStyle,OnClick" />
 
@@ -114,7 +113,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:onClick="Change"
             android:text="@string/week"
             tools:ignore="ButtonStyle,OnClick" />
 
@@ -134,7 +132,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:onClick="Change"
             android:text="@string/year"
             tools:ignore="ButtonStyle,OnClick" />
     </TableRow>

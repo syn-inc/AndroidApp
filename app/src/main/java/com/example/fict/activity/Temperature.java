@@ -45,17 +45,13 @@ public class Temperature extends AppCompatActivity {
         setContentView(R.layout.activity_temperature);
 
         Date date = new Date();
-        //Find textview for display last value
-        TextView textView = findViewById(R.id.textView5);
-        //show date
-        TextView textView1 = findViewById(R.id.Date);
+        TextView textView = findViewById(R.id.textView5);        //Find textview for display last value
+        TextView textView1 = findViewById(R.id.Date);        //show date
         textView1.setText(date.toString());
-        //set last value on the main screen
-        textView.setText(getTEMPEARTURE());
-        //Return array with all value ta a day
-        //updateTempGraph();
+        textView.setText(getTEMPEARTURE());         //set last value on the main screen
+        new getHis().execute(); //Return array with all value ta a day
 
-        new getHis().execute();
+        createTempGraph();
     }
 
 
@@ -63,9 +59,6 @@ public class Temperature extends AppCompatActivity {
     class getHis extends AsyncTask<Void, Integer, Void> {
         Respones respones = new Respones();
         Parsing parsing = new Parsing();
-
-
-
         /**
          * A send GET request to the server
          */
@@ -73,9 +66,6 @@ public class Temperature extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             respones.ResponesHistory("2019-02-14", "2019-03-15", 1, 2);
-
-
-
         }
 
         // 3. Показать температтуру
@@ -83,30 +73,23 @@ public class Temperature extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             setDayValueHistory(parsing.getDay());
-
+            updateTempGraph();
         }
 
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-
         }
 
 
         @Override
         protected Void doInBackground(Void... voids) {
             parsing.setRESPONES(respones.getRESPONSES());
-
             return null;
         }
     }
-
-    @SuppressLint("ShowToast")
-
-    public void updateTempGraph() {
-
-        // plotting results
+    public void createTempGraph(){
         LineChart chart = findViewById(R.id.chart);
         Description desc = chart.getDescription();
         desc.setText("");
@@ -117,23 +100,33 @@ public class Temperature extends AppCompatActivity {
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setAxisMinimum(0f);
-        xAxis.setAxisMaximum(12);
+        xAxis.setAxisMaximum(24);
         xAxis.setGranularity(1f);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return MainActivity.getMonths()[(int) value % MainActivity.getMonths().length];
+                return MainActivity.getHours()[(int) value % MainActivity.getHours().length];
             }
         });
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        leftAxis.setAxisMaximum(50f);
+        chart.invalidate();
+    }
+
+    public void updateTempGraph() {
+
+        ArrayList test = getDayValueHistory();
+
+        // plotting results
+        LineChart chart = findViewById(R.id.chart);
 
         List<Entry> entries = new ArrayList<Entry>();
 
-        for (int i = 0; i < 50; i++) {
-            entries.add(new Entry((float) i, (float) Math.pow(Math.sin(i), 2) * 25));
+        for (int i = 0; i < test.size(); i++) {
+            entries.add(new Entry((float) i, (float) test.get(i))); //Math.pow(Math.sin(i), 2) * 25
         }
         LineDataSet dataSet = new LineDataSet(entries, "Temperature for the last year");
         dataSet.setColor(Color.rgb(0, 255, 0));

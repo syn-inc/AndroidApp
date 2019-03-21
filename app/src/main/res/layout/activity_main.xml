@@ -30,7 +30,7 @@
             android:lineSpacingExtra="12sp"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
-            android:textSize="75sp"
+            android:textSize="65sp"
             android:typeface="normal"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
