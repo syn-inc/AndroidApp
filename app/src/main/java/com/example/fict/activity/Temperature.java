@@ -28,7 +28,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -153,12 +152,12 @@ public class Temperature extends AppCompatActivity {
             if (i < minValue) {
                 minValue = i;
             }
-            if (i>maxValue){
+            if (i > maxValue) {
                 maxValue = i;
             }
         }
-        minGraphValue = minValue-(float)0.5;
-        maxGraphValue = maxValue+(float)0.5;
+        minGraphValue = minValue - (float) 0.5;
+        maxGraphValue = maxValue + (float) 0.5;
     }
 
 
