@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fict.MainActivity;
 import com.example.fict.MyMarkerView;
@@ -42,8 +43,8 @@ import static com.example.fict.MainActivity.getTEMPERATURE;
 public class Temperature extends AppCompatActivity {
     ArrayList<Float> dayValueHistory;
     private LineChart chart;
-    public static float minGraphValue = 0;
-    public static float maxGraphValue = 0;
+    private static float minGraphValue = 0;
+    private static float maxGraphValue = 0;
 
     public void setDayValueHistory(ArrayList<Float> dayValueHistory) {
         this.dayValueHistory = dayValueHistory;
@@ -66,7 +67,7 @@ public class Temperature extends AppCompatActivity {
 //        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         Date date = new Date();
-        TextView textView = findViewById(R.id.textView5);        //Find textView for display last value
+        TextView textView = findViewById(R.id.current_value);        //Find textView for display last value
         TextView textView1 = findViewById(R.id.Date);        //show date
         textView1.setText(date.toString());
         textView.setText(getTEMPERATURE());         //set last value on the main screen
@@ -99,8 +100,12 @@ public class Temperature extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            setDayValueHistory(parsing.getDay());
-            updateTempGraph();
+            if (parsing.getDay() != null){
+                setDayValueHistory(parsing.getDay());
+                updateTempGraph();
+            }else {
+                Toast.makeText(getApplicationContext(), "Cannot connect ot server", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -191,7 +196,7 @@ public class Temperature extends AppCompatActivity {
             entries.add(new Entry((float) i, dayValues.get(dayValues.size() / 25 * i)));
             Log.d("", Float.toString(i));
         }
-        LineDataSet dataSet = new LineDataSet(entries, "Temperature for the last year");
+        LineDataSet dataSet = new LineDataSet(entries, "Temperature for the last day");
 
         dataSet.setColor(Color.rgb(0, 255, 0)); // adding line parameters
         dataSet.setDrawValues(false);
@@ -210,7 +215,7 @@ public class Temperature extends AppCompatActivity {
         //to enable the cubic density : if 1 then it will be sharp curve
         dataSet.setCubicIntensity(0.2f);
         dataSet.setFillColor(Color.BLACK);
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_green);
         dataSet.setFillDrawable(drawable);
 
         // set color of filled area

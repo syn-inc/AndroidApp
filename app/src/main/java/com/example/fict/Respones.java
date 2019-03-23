@@ -48,7 +48,6 @@ public class Respones {
      */
     public String getRESPONSES() {
         return RESPONSES;
-
     }
 
     /**
@@ -56,7 +55,7 @@ public class Respones {
      */
     private void setRESPONSES(String RESPONSES) {
         this.RESPONSES = RESPONSES;
-        Log.d(TAG, "RESPONSES" + RESPONSES);
+        //Log.d(TAG, "RESPONSES" + RESPONSES);
     }
 
     /**
@@ -94,9 +93,7 @@ public class Respones {
                 }
                 return null;
             }
-
         }.execute();
-
     }
 
     /**
@@ -119,7 +116,6 @@ public class Respones {
                         .url(urlHistory + "?start=" + start + "&end=" + end + "&id=" + id + "&step=" + step)
                         .build();
                 try {
-
                     Response response = client.newCall(request).execute();
                     assert response.body() != null;
                     setRESPONSES(response.body().string());
