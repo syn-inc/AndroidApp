@@ -13,6 +13,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 /**
  * Class to format all values before they are drawn as labels.
+ * @author Philipp Jahoda
  */
 public abstract class ValueFormatter implements IAxisValueFormatter, IValueFormatter {
 

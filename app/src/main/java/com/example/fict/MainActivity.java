@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         @Override
         protected Void doInBackground(Void... voids) {
-            parsing.setRESPONES(respones.getRESPONSES());
+            parsing.setRESPONSES(respones.getRESPONSES());
 
             return null;
         }

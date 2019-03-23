@@ -61,14 +61,14 @@ public class Temperature extends AppCompatActivity {
         TextView textView1 = findViewById(R.id.Date);        //show date
         textView1.setText(date.toString());
         textView.setText(getTEMPEARTURE());         //set last value on the main screen
-        new getHis().execute(); //Return array with all value ta a day
+        new getTemp().execute(); //Return array with all value ta a day
 
         createTempGraph();
     }
 
 
     @SuppressLint("StaticFieldLeak")
-    class getHis extends AsyncTask<Void, Integer, Void> {
+    class getTemp extends AsyncTask<Void, Integer, Void> {
         Respones respones = new Respones();
         Parsing parsing = new Parsing();
 
@@ -96,7 +96,7 @@ public class Temperature extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            parsing.setRESPONES(respones.getRESPONSES());
+            parsing.setRESPONSES(respones.getRESPONSES());
             return null;
         }
     }
