@@ -1,6 +1,8 @@
 package com.example.fict.activity;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -8,7 +10,9 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.fict.MainActivity;
 import com.example.fict.MyMarkerView;
@@ -34,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.fict.MainActivity.getTEMPEARTURE;
 
@@ -55,6 +60,13 @@ public class Temperature extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
+//        Toolbar mToolbar = findViewById(R.id.toolbar);
+//        mToolbar.setTitle(getString(R.string.app_name));
+//        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+//        ActionBar actionBar = getActionBar();
+//        assert actionBar != null;
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         Date date = new Date();
         TextView textView = findViewById(R.id.textView5);        //Find textView for display last value
@@ -64,6 +76,11 @@ public class Temperature extends AppCompatActivity {
         new getHis().execute(); //Return array with all value ta a day
 
         createTempGraph();
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 
 

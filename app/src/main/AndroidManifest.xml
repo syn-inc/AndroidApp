@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.fict">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.Temperature" />
-        <activity android:name=".activity.Gas" />
-        <activity android:name=".activity.Light" />
+        <activity android:name=".activity.Temperature"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".activity.Gas"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".activity.Light"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
