@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,12 +25,20 @@ import com.example.fict.activity.Temperature;
 /**
  * @author Vlados
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
 
     private static final String TAG = "myLogs";
+    public Integer TimeSwipeAnimation = 3000;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    ConnectionDetector connectionDetector;
+
+
+
 
     public TextView MainViewBord; //TextView for represent a data
+
+
 
     private static String TEMPEARTURE;
     private static String LOGDATE;
@@ -68,34 +78,25 @@ public class MainActivity extends AppCompatActivity {
     public static String getTEMPEARTURE() {
         return TEMPEARTURE;
     }
-
-    public static String getLIGHT() {
-        return LIGHT;
-    }
-
-    public static String getLOGDATE() {
-        return LOGDATE;
-    }
-
-    public static void setHUMIDITY(String HUMIDITY) {
-        MainActivity.HUMIDITY = HUMIDITY;
-    }
-
-    public static void setMOVE(String MOVE) {
-        MainActivity.MOVE = MOVE;
-    }
-
     public static void setTEMPEARTURE(String TEMPEARTURE) {
         MainActivity.TEMPEARTURE = TEMPEARTURE;
     }
 
-    public static void setLOGDATE(String LOGDATE) {
-        MainActivity.LOGDATE = LOGDATE;
+    public static String getLIGHT() {
+        return LIGHT;
+    }
+    public static void setHUMIDITY(String HUMIDITY) {
+        MainActivity.HUMIDITY = HUMIDITY;
     }
 
     public static void setLIGHT(String LIGHT) {
         MainActivity.LIGHT = LIGHT;
     }
+
+    //
+
+
+    //
 
 
     /**
@@ -108,14 +109,69 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new getRespounes().execute();
 
+        //Check Internet Connection
+        connectionDetector  = new ConnectionDetector(this);
+        if(!connectionDetector.isConnected()){
+            Toast.makeText(MainActivity.this,"Not Connected",Toast.LENGTH_LONG).show();
+        }else {
+            new getRespounes().execute();
+        }
+
+
+        SwipeDown();
         Button_Animation(); // Button animation
-
-
         MainViewBord = findViewById(R.id.get);
         MainViewBord.setText(":)");
+
     }
+
+
+    /**
+     * Animation swipe down provide a reflash data and send a Toast about Connection to the Internet
+     * If connection is fail
+     *
+     */
+    public void SwipeDown(){
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        //Colors animation a update
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+    }
+
+
+    @Override
+    public void onRefresh() {
+        //Operations are carried out in a new thread
+        new Handler().postDelayed(new Runnable() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void run() {
+                //Check connection
+                if(connectionDetector.isConnected()){
+                    Toast.makeText(MainActivity.this,"Reflash data done",Toast.LENGTH_LONG).show();
+                    //Send request if connection is well
+                    new getRespounes().execute();
+                }else {
+                    Toast.makeText(MainActivity.this,"Not Connected",Toast.LENGTH_LONG).show();
+                }
+                // Cancel animation reflesh
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+
+            //Time, how much will be animation
+        }, TimeSwipeAnimation);
+    }
+
+
+
+
+
+
 
 
     /**
@@ -167,14 +223,20 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
+
     /**
      * @see Respones,Parsing the first one, create two new obejets
      * OnPreExecude -
      */
+
     @SuppressLint("StaticFieldLeak")
     class getRespounes extends AsyncTask<Void, Integer, Void> {
         Respones respones = new Respones();
         Parsing parsing = new Parsing();
+
+
 
 
         /**
@@ -184,6 +246,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             respones.Resp(1, 1);
+
+
+
         }
 
         // 3. Показать температтуру
@@ -193,6 +258,10 @@ public class MainActivity extends AppCompatActivity {
             setTEMPEARTURE(parsing.getTemperatureLastValue()+"°C");
             setLIGHT(parsing.getLightLastValue()+" lm");
             setHUMIDITY(parsing.getHumidityLastValue()+"%");
+           // Respones.methodToast(MainActivity.this);
+
+
+
         }
 
 
@@ -205,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             parsing.setRESPONES(respones.getRESPONSES());
+
             return null;
         }
     }
@@ -389,4 +459,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 }

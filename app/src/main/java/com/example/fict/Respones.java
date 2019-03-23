@@ -1,7 +1,12 @@
 package com.example.fict;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.telecom.CallScreeningService;
 import android.util.Log;
+import android.widget.Toast;
+
+
 import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -59,6 +64,12 @@ public class Respones {
     }
 
 
+
+
+
+
+
+
     /**
      * A send Get request
      * @param bid - building ID, example FICT has id=1
@@ -85,7 +96,7 @@ public class Respones {
                     new Runnable() {
                         @Override
                         public void run() {
-                            Log.e(urlLastValue, "Connection Error ", e);
+
                         }
                     };
                 } catch (final Exception e) {
@@ -117,6 +128,7 @@ public class Respones {
                         .url(urlHistory +"?start="+start+"&end="+end+"&id="+id+"&step="+step)
                         .build();
                 try {
+
                     Response response = client.newCall(request).execute();
                     assert response.body() != null;
                     setRESPONSES(response.body().string());
@@ -126,11 +138,12 @@ public class Respones {
                     new Runnable() {
                         @Override
                         public void run() {
-                            Log.e(urlLastValue, "Connection Error ", e);
+
                         }
                     };
                 } catch (final Exception e) {
                     e.getStackTrace();
+
                 }
                 return  null;
             }
