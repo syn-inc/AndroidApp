@@ -1,7 +1,6 @@
 package com.example.fict.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.example.fict.MainActivity;
 import com.example.fict.MyMarkerView;
@@ -38,9 +36,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-import static com.example.fict.MainActivity.getTEMPEARTURE;
+import static com.example.fict.MainActivity.getTEMPERATURE;
 
 public class Temperature extends AppCompatActivity {
     ArrayList<Float> dayValueHistory;
@@ -72,7 +69,7 @@ public class Temperature extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView5);        //Find textView for display last value
         TextView textView1 = findViewById(R.id.Date);        //show date
         textView1.setText(date.toString());
-        textView.setText(getTEMPEARTURE());         //set last value on the main screen
+        textView.setText(getTEMPERATURE());         //set last value on the main screen
         new getTemp().execute(); //Return array with all value ta a day
 
         createTempGraph();
