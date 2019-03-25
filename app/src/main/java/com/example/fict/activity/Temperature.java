@@ -58,13 +58,13 @@ public class Temperature extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
-//        Toolbar mToolbar = findViewById(R.id.toolbar);
-//        mToolbar.setTitle(getString(R.string.app_name));
-//        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-//        ActionBar actionBar = getActionBar();
-//        assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+/*        Toolbar mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setTitle(getString(R.string.app_name));
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        ActionBar actionBar = getActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);*/
 
         Date date = new Date();
         TextView textView = findViewById(R.id.current_value);        //Find textView for display last value
@@ -75,10 +75,27 @@ public class Temperature extends AppCompatActivity {
 
         createTempGraph();
     }
+
+    //TODO what's the purpose of this block?
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
         return true;
+    }
+
+    public void getArrayListMinMax(ArrayList<Float> a) {
+        float minValue = a.get(0);
+        float maxValue = a.get(0);
+        for (float i : a) {
+            if (i < minValue) {
+                minValue = i;
+            }
+            if (i > maxValue) {
+                maxValue = i;
+            }
+        }
+        minGraphValue = minValue - (float) 0.5;
+        maxGraphValue = maxValue + (float) 0.5;
     }
 
 
@@ -163,22 +180,6 @@ public class Temperature extends AppCompatActivity {
         rightAxis.setDrawLabels(false);
         chart.invalidate();
     }
-
-    public void getArrayListMinMax(ArrayList<Float> a) {
-        float minValue = a.get(0);
-        float maxValue = a.get(0);
-        for (float i : a) {
-            if (i < minValue) {
-                minValue = i;
-            }
-            if (i > maxValue) {
-                maxValue = i;
-            }
-        }
-        minGraphValue = minValue - (float) 0.5;
-        maxGraphValue = maxValue + (float) 0.5;
-    }
-
 
     public void updateTempGraph() {
 

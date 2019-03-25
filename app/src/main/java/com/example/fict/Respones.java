@@ -2,7 +2,6 @@ package com.example.fict;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.IOException;
 
