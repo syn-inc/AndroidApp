@@ -1,17 +1,14 @@
-﻿package com.example.fict;
+package com.example.fict;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-
 import java.io.IOException;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * @author Vlados
  * Class created for send Request
  * Set answer from server
  * Get JSON
