@@ -41,7 +41,6 @@ public class Parsing {
 
     String getLightLastValue() {
         getLastValueSensor(6);
-        Log.d(TAG, "ValueLight = " + value);
         return value;
     }
 

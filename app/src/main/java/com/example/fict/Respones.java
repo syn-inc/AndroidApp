@@ -77,7 +77,7 @@ public class Respones {
      * I/O exception when connection is gone
      */
     @SuppressLint("StaticFieldLeak")
-    void Resp(final int bid, final int rid ) {
+    void RequestLastValue(final int bid, final int rid ) {
         final AsyncTask connection_error_ = new AsyncTask<Void, Void, ResponseBody>() {
 
             @Override

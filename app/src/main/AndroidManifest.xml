@@ -20,6 +20,8 @@
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".activity.Light"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name=".activity.Humidity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Humidity" />
     </application>
 
 </manifest>

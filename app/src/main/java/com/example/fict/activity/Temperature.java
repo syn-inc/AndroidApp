@@ -60,14 +60,6 @@ public class Temperature extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
-//        Toolbar mToolbar = findViewById(R.id.toolbar);
-//        mToolbar.setTitle(getString(R.string.app_name));
-//        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-//        ActionBar actionBar = getActionBar();
-//        assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         Date date = new Date();
         TextView textView = findViewById(R.id.textView5);        //Find textView for display last value
         TextView textView1 = findViewById(R.id.Date);        //show date
@@ -95,7 +87,7 @@ public class Temperature extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            respones.ResponesHistory("2019-02-14", "2019-03-15", 1, 2);
+            respones.ResponesHistory("2019-01-21", "2019-03-27", 1, 2);
         }
 
         // Showing temperature and updating graph's values

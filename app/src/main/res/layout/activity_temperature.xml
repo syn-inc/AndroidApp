@@ -9,13 +9,12 @@
     tools:context=".activity.Temperature">
 
 
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/view_layout"
         android:layout_width="wrap_content"
         android:layout_height="160dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"

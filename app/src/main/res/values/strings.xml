@@ -17,7 +17,6 @@
     <string name="test3">Жов 16 1:31 PM</string>
     <string name="test4">538-18</string>
     <string name="button">Button</string>
-    <string name="todo">TODO</string>
     <string name="frag1_text">Fragment 1</string>
     <string name="frag2_text">Fragment 2</string>
     <string name="add">Add</string>
@@ -33,6 +32,7 @@
     <string name="room_307">307</string>
     <string name="room_538">538</string>
     <string name="room_marik">МАРІК</string>
+    <string name="todo">TODO</string>
 
 
     <!-- Strings for respones-->

@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +25,8 @@ import com.example.fict.activity.Humidity;
 import com.example.fict.activity.Light;
 import com.example.fict.activity.Temperature;
 
+import java.util.ArrayList;
+
 /**
  * @author Vlados
  */
@@ -32,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public Integer TimeSwipeAnimation = 3000;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     ConnectionDetector connectionDetector;
+
+
+
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<Integer> mImage = new ArrayList<>();
 
 
 
@@ -121,11 +131,58 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
 
         SwipeDown();
-        Button_Animation(); // Button animation
+       // Button_Animation(); // Button animation
         MainViewBord = findViewById(R.id.get);
         MainViewBord.setText(":)");
+        initImageBitmaps();
+
+
 
     }
+
+
+
+    private void initImageBitmaps(){
+        Log.i(TAG, "initImageBitmaps: preparin bitmaps");
+        mImage.add(R.drawable.temperature_background);
+        mImage.add(R.drawable.huminity_background);
+        mImage.add(R.drawable.light_background);
+        mImage.add(R.drawable.gas_background);
+        mImage.add(R.drawable.motion_background);
+
+
+
+        mNames.add("Temperature");
+        mNames.add("Huminity");
+        mNames.add("Light");
+        mNames.add("Gas");
+        mNames.add("Motion");
+
+        initRecycleView();
+
+    }
+
+    public void initRecycleView (){
+        Log.i(TAG, "initRecycleView: init recycle View");
+        RecyclerView recyclerView = findViewById(R.id.recycle_view);
+        RecycleViewAdapter recycleViewAdapter = new RecycleViewAdapter(this, mNames, mImage);
+        recyclerView.setAdapter(recycleViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
@@ -135,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
      */
     public void SwipeDown(){
         mSwipeRefreshLayout = findViewById(R.id.swipe_container);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setOnRefreshListener(MainActivity.this);
         //Colors animation a update
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -156,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 if(connectionDetector.isConnected()){
                     Toast.makeText(MainActivity.this,"Reflash data done",Toast.LENGTH_LONG).show();
                     //Send request if connection is well
-                    new getRespounes().execute();
+                   new getRespounes().execute();
                 }else {
                     Toast.makeText(MainActivity.this,"Not Connected",Toast.LENGTH_LONG).show();
                 }
@@ -237,16 +294,13 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         Respones respones = new Respones();
         Parsing parsing = new Parsing();
 
-
-
-
         /**
          * Send GET request to the server
          */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            respones.Resp(1, 1);
+            respones.RequestLastValue(1, 1);
 
 
 
@@ -310,155 +364,155 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
      * For real, all OnLongClickListener() must be into another place
      * Maybe create new class, i don't know. It's works!
      */
-    public void Button_Animation() {
-        // Find animation in resources
-        final Animation onClickAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha);
-
-        humidity = findViewById(R.id.Humidity);
-        light = findViewById(R.id.Light);
-        temperature = findViewById(R.id.Temperature);
-        gas = findViewById(R.id.Gas);
-        fire = findViewById(R.id.Fire);
-        motion = findViewById(R.id.Move);
-
-
-/*
-                        Humidity
- */
-        humidity.setOnClickListener(new Button.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(onClickAnimation);
-                getDefaultIconsForButtons();
-                humidity.setImageResource(R.drawable.himinity_color);
-                MainViewBord.setText(getHUMIDITY());
-
-
-            }
-
-        });
-
-        humidity.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Humidity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-
-/*
-                            Light
- */
-        light.setOnClickListener(new Button.OnClickListener() {
-
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(onClickAnimation);
-                MainViewBord.setText(getLIGHT());
-                getDefaultIconsForButtons();
-                light.setImageResource(R.drawable.light_color);
-
-
-            }
-        });
-
-        light.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Light.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-//                              Gas
-//---------------------------------------------------------------------------------------------
-
-        gas.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(onClickAnimation);
-                getDefaultIconsForButtons();
-                gas.setImageResource(R.drawable.gas_color);
-                MainViewBord.setText("Error");
-
-                Toast.makeText(getApplicationContext(), "This sensor is in development", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        gas.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Gas.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-
-
-        //              Temperature
-
-        temperature.setOnClickListener(new Button.OnClickListener() {
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(onClickAnimation);
-                MainViewBord.setText(getTEMPEARTURE());
-                getDefaultIconsForButtons();
-                temperature.setImageResource(R.drawable.temperature_color);
-            }
-        });
-        temperature.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Temperature.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-//                      Fire
-        fire.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(onClickAnimation);
-                getDefaultIconsForButtons();
-                fire.setImageResource(R.drawable.fire_color);
-                MainViewBord.setText("--");
-
-            }
-        });
-        fire.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Humidity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-//              Motion
-        motion.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.startAnimation(onClickAnimation);
-                getDefaultIconsForButtons();
-                motion.setImageResource(R.drawable.motion_color);
-                MainViewBord.setText("Move");
-
-            }
-        });
-        motion.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Humidity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-
-    }
+//    public void Button_Animation() {
+//        // Find animation in resources
+//        final Animation onClickAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha);
+//
+//        humidity = findViewById(R.id.Humidity);
+//        light = findViewById(R.id.Light);
+//        temperature = findViewById(R.id.Temperature);
+//        gas = findViewById(R.id.Gas);
+//        fire = findViewById(R.id.Fire);
+//        motion = findViewById(R.id.Move);
+//
+//
+///*
+//                        Humidity
+// */
+//        humidity.setOnClickListener(new Button.OnClickListener() {
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onClick(View view) {
+//                view.startAnimation(onClickAnimation);
+//                getDefaultIconsForButtons();
+//                humidity.setImageResource(R.drawable.himinity_color);
+//                MainViewBord.setText(getHUMIDITY());
+//
+//
+//            }
+//
+//        });
+//
+//        humidity.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, Humidity.class);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+//
+///*
+//                            Light
+// */
+//        light.setOnClickListener(new Button.OnClickListener() {
+//
+//
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onClick(View view) {
+//                view.startAnimation(onClickAnimation);
+//                MainViewBord.setText(getLIGHT());
+//                getDefaultIconsForButtons();
+//                light.setImageResource(R.drawable.light_color);
+//
+//
+//            }
+//        });
+//
+//        light.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, Light.class);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+////                              Gas
+////---------------------------------------------------------------------------------------------
+//
+//        gas.setOnClickListener(new Button.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                view.startAnimation(onClickAnimation);
+//                getDefaultIconsForButtons();
+//                gas.setImageResource(R.drawable.gas_color);
+//                MainViewBord.setText("Error");
+//
+//                Toast.makeText(getApplicationContext(), "This sensor is in development", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        gas.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, Gas.class);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+//
+//
+//        //              Temperature
+//
+//        temperature.setOnClickListener(new Button.OnClickListener() {
+//
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onClick(View view) {
+//                view.startAnimation(onClickAnimation);
+//                MainViewBord.setText(getTEMPEARTURE());
+//                getDefaultIconsForButtons();
+//                temperature.setImageResource(R.drawable.temperature_color);
+//            }
+//        });
+//        temperature.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, Temperature.class);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+////                      Fire
+//        fire.setOnClickListener(new Button.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                view.startAnimation(onClickAnimation);
+//                getDefaultIconsForButtons();
+//                fire.setImageResource(R.drawable.fire_color);
+//                MainViewBord.setText("--");
+//
+//            }
+//        });
+//        fire.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, Humidity.class);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+////              Motion
+//        motion.setOnClickListener(new Button.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                view.startAnimation(onClickAnimation);
+//                getDefaultIconsForButtons();
+//                motion.setImageResource(R.drawable.motion_color);
+//                MainViewBord.setText("Move");
+//
+//            }
+//        });
+//        motion.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, Humidity.class);
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
+//
+//    }
 
 }
