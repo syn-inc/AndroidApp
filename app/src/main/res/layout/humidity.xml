@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/current_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
@@ -109,7 +109,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:onClick="Change"
             android:text="@string/day"
             tools:ignore="ButtonStyle" />
 
@@ -119,7 +118,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:onClick="Change"
             android:text="@string/week"
             tools:ignore="ButtonStyle" />
 
@@ -129,7 +127,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:onClick="Change"
             android:text="@string/month"
             tools:ignore="ButtonStyle" />
 
@@ -140,7 +137,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:onClick="Change"
             android:text="@string/year"
             tools:ignore="ButtonStyle" />
 

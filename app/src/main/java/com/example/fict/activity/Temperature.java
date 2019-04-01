@@ -1,7 +1,6 @@
 package com.example.fict.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
 import com.example.fict.MainActivity;
 import com.example.fict.MyMarkerView;
@@ -38,15 +37,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-import static com.example.fict.MainActivity.getTEMPEARTURE;
+import static com.example.fict.MainActivity.getTEMPERATURE;
 
 public class Temperature extends AppCompatActivity {
     ArrayList<Float> dayValueHistory;
     private LineChart chart;
-    public static float minGraphValue = 0;
-    public static float maxGraphValue = 0;
+    private static float minGraphValue = 0;
+    private static float maxGraphValue = 0;
 
     public void setDayValueHistory(ArrayList<Float> dayValueHistory) {
         this.dayValueHistory = dayValueHistory;
@@ -60,24 +58,52 @@ public class Temperature extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature);
+
+
+/*        Toolbar mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setTitle(getString(R.string.app_name));
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        ActionBar actionBar = getActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);*/
+
+
         Date date = new Date();
-        TextView textView = findViewById(R.id.textView5);        //Find textView for display last value
+        TextView textView = findViewById(R.id.current_value);        //Find textView for display last value
         TextView textView1 = findViewById(R.id.Date);        //show date
         textView1.setText(date.toString());
-        textView.setText(getTEMPEARTURE());         //set last value on the main screen
-        new getHis().execute(); //Return array with all value ta a day
+        textView.setText(getTEMPERATURE());         //set last value on the main screen
+        new getTemp().execute(); //Return array with all value ta a day
 
         createTempGraph();
     }
+
+    //TODO what's the purpose of this block?
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
         return true;
     }
 
+    public void getArrayListMinMax(ArrayList<Float> a) {
+        float minValue = a.get(0);
+        float maxValue = a.get(0);
+        for (float i : a) {
+            if (i < minValue) {
+                minValue = i;
+            }
+            if (i > maxValue) {
+                maxValue = i;
+            }
+        }
+        minGraphValue = minValue - (float) 0.5;
+        maxGraphValue = maxValue + (float) 0.5;
+    }
+
 
     @SuppressLint("StaticFieldLeak")
-    class getHis extends AsyncTask<Void, Integer, Void> {
+    class getTemp extends AsyncTask<Void, Integer, Void> {
         Respones respones = new Respones();
         Parsing parsing = new Parsing();
 
@@ -94,8 +120,12 @@ public class Temperature extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            setDayValueHistory(parsing.getDay());
-            updateTempGraph();
+            if (parsing.getDay() != null){
+                setDayValueHistory(parsing.getDay());
+                updateTempGraph();
+            }else {
+                Toast.makeText(getApplicationContext(), "Cannot connect ot server", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -105,7 +135,7 @@ public class Temperature extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            parsing.setRESPONES(respones.getRESPONSES());
+            parsing.setRESPONSES(respones.getRESPONSES());
             return null;
         }
     }
@@ -154,22 +184,6 @@ public class Temperature extends AppCompatActivity {
         chart.invalidate();
     }
 
-    public void getArrayListMinMax(ArrayList<Float> a) {
-        float minValue = a.get(0);
-        float maxValue = a.get(0);
-        for (float i : a) {
-            if (i < minValue) {
-                minValue = i;
-            }
-            if (i > maxValue) {
-                maxValue = i;
-            }
-        }
-        minGraphValue = minValue - (float) 0.5;
-        maxGraphValue = maxValue + (float) 0.5;
-    }
-
-
     public void updateTempGraph() {
 
         ArrayList<Float> dayValues = getDayValueHistory();
@@ -186,7 +200,7 @@ public class Temperature extends AppCompatActivity {
             entries.add(new Entry((float) i, dayValues.get(dayValues.size() / 25 * i)));
             Log.d("", Float.toString(i));
         }
-        LineDataSet dataSet = new LineDataSet(entries, "Temperature for the last year");
+        LineDataSet dataSet = new LineDataSet(entries, "Temperature for the last day");
 
         dataSet.setColor(Color.rgb(0, 255, 0)); // adding line parameters
         dataSet.setDrawValues(false);
@@ -205,7 +219,7 @@ public class Temperature extends AppCompatActivity {
         //to enable the cubic density : if 1 then it will be sharp curve
         dataSet.setCubicIntensity(0.2f);
         dataSet.setFillColor(Color.BLACK);
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_green);
         dataSet.setFillDrawable(drawable);
 
         // set color of filled area
