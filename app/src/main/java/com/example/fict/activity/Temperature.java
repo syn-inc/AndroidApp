@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 import com.example.fict.MainActivity;
 import com.example.fict.MyMarkerView;
-import com.example.fict.Parsing;
+import com.example.fict.connection.Parsing;
 import com.example.fict.R;
-import com.example.fict.Respones;
+import com.example.fict.connection.Respones;
 import com.example.fict.ValueFormatter;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -104,8 +104,7 @@ public class Temperature extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     class getTemp extends AsyncTask<Void, Integer, Void> {
-        Respones respones = new Respones();
-        Parsing parsing = new Parsing();
+
 
         /**
          * Send GET request to the server
@@ -113,7 +112,7 @@ public class Temperature extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            respones.ResponesHistory("2019-01-21", "2019-03-27", 1, 2);
+           // respones.ResponesHistory("2019-01-21", "2019-03-27", 1, 2);
         }
 
         // Showing temperature and updating graph's values
@@ -135,7 +134,8 @@ public class Temperature extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            parsing.setRESPONSES(respones.getRESPONSES());
+
+
             return null;
         }
     }

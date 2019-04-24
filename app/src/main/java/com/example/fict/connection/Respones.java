@@ -1,4 +1,4 @@
-﻿package com.example.fict;
+package com.example.fict.connection;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -60,7 +60,6 @@ public class Respones {
     /**
      * A send Get request
      *
-     * @param bid - building ID, example FICT has id=1
      * @param rid - room ID, example 538 has id = 1, 535 has id=2
      *            I/O exception when connection is gone
      */
@@ -68,14 +67,14 @@ public class Respones {
     // TODO should we use it?
     @SuppressLint("StaticFieldLeak")
 
-    void RequestLastValue(final int bid, final int rid ) {
+    public void RequestLastValue(final int rid ) {
         final AsyncTask connection_error_ = new AsyncTask<Void, Void, ResponseBody>() {
 
             @Override
             protected ResponseBody doInBackground(Void... voids) {
                 OkHttpClient client = new OkHttpClient();
                 final Request request = new Request.Builder()
-                        .url(urlLastValue + "?bid=" + bid + "&rid=" + rid)
+                        .url(urlLastValue + "&rid=" + rid)
                         .build();
                 try {
                     Response response = client.newCall(request).execute();

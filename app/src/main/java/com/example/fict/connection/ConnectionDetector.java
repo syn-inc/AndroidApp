@@ -1,19 +1,19 @@
-package com.example.fict;
+package com.example.fict.connection;
 
 import android.app.Service;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-class ConnectionDetector {
+public class ConnectionDetector {
     private Context context;
 
 
-    ConnectionDetector(Context context) {
+    public ConnectionDetector(Context context) {
         this.context = context;
     }
 
-    boolean isConnected() {
+    public boolean isConnected() {
         ConnectivityManager connectivity = (ConnectivityManager)
                 context.getSystemService(Service.CONNECTIVITY_SERVICE);
         if (connectivity != null) {

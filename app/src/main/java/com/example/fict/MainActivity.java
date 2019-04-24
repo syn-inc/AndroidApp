@@ -1,7 +1,6 @@
-﻿package com.example.fict;
+package com.example.fict;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,18 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fict.activity.Gas;
-import com.example.fict.activity.Humidity;
-import com.example.fict.activity.Light;
-import com.example.fict.activity.Temperature;
+import com.example.fict.connection.ConnectionDetector;
+import com.example.fict.connection.Parsing;
+import com.example.fict.connection.Respones;
 
 import java.util.ArrayList;
 
@@ -39,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<Integer> mImage = new ArrayList<>();
+    String TAG = "MyTags";
 
 
 
@@ -245,13 +240,13 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
 
     /**
-     * @see Respones,Parsing the first one, create two new obejets
+     * @see Respones , Parsing the first one, create two new obejets
      * OnPreExecude -
      */
 
     @SuppressLint("StaticFieldLeak")
     class getResponses extends AsyncTask<Void, Integer, Void> {
-        Respones respones = new Respones();
+        //Respones respones = new Respones();
         Parsing parsing = new Parsing();
 
         /**
@@ -260,15 +255,15 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            respones.RequestLastValue(1, 1);
+            //respones.RequestLastValue(1, 1);
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            setTEMPERATURE(parsing.getTemperatureLastValue() + "°C");
-            setLIGHT(parsing.getLightLastValue() + " lm");
-            setHUMIDITY(parsing.getHumidityLastValue() + "%");
+//            setTEMPERATURE(parsing.getTemperatureLastValue() + "°C");
+//            setLIGHT(parsing.getLightLastValue() + " lm");
+//            setHUMIDITY(parsing.getHumidityLastValue() + "%");
         }
 
         @Override
@@ -278,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         @Override
         protected Void doInBackground(Void... voids) {
-            parsing.setRESPONSES(respones.getRESPONSES());
+           // parsing.setRESPONSES(respones.getRESPONSES());
 
             return null;
         }

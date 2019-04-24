@@ -1,4 +1,4 @@
-package com.example.fict;
+package com.example.fict.connection;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,33 +32,6 @@ public class Parsing {
         this.id = id;
     }
 
-
-    /**
-     * @return - light sensor value
-     */
-
-    String getLightLastValue() {
-        getLastValueSensor(6);
-
-        //Log.d(TAG, "ValueLight = " + value);
-        return value;
-    }
-
-    /**
-     * @return - temperature sensor value
-     */
-    String getTemperatureLastValue() {
-        getLastValueSensor(1);
-        return value;
-    }
-
-    /**
-     * @return - humidity sensor value
-     */
-    String getHumidityLastValue() {
-        getLastValueSensor(2);
-        return value;
-    }
 
     /**
      * Simple parsing Because already the following sensors
@@ -96,8 +69,7 @@ public class Parsing {
     /**
      * @return array
      */
-    public ArrayList<Float> getDay () {
-
+    public ArrayList<Float> getValuesArray () {
         ArrayList<Float> array = new ArrayList<>();
         Float iterator = null;
         if (RESPONSES != null) {

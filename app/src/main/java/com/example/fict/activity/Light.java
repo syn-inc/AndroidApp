@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.example.fict.MainActivity;
 import com.example.fict.MyMarkerView;
-import com.example.fict.Parsing;
+import com.example.fict.connection.Parsing;
 import com.example.fict.R;
-import com.example.fict.Respones;
+import com.example.fict.connection.Respones;
 import com.example.fict.ValueFormatter;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
